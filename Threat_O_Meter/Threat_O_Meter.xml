@@ -1,0 +1,3 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="Threat_O_Meter" frameStrata="DIALOG" hidden="true" />
+</Ui>
