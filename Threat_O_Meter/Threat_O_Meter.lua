@@ -14,6 +14,7 @@ local tinsert 	= _G.tinsert;
 local math 		= _G.math;
 local wipe 		= _G.wipe;
 
+local CoreName,CoreObject = ...;
 local ThreatMeter = _G["Threat_O_Meter"];
 
 --[[ LOCALS ]]--
@@ -157,3 +158,17 @@ function ThreatMeter:Initialize()
 	self:RegisterForDrag("LeftButton");
 	self:SetClampedToScreen(true);
 end
+
+local LoadListener = CreateFrame("Frame")
+local LoadListener_OnEvent = function(self, event, ...)
+    if(event == "PLAYER_LOGIN") then
+        if(not CoreObject.___initialized and IsLoggedIn()) then
+            ThreatMeter:Initialize()
+            CoreObject.___initialized = true
+            self:UnregisterEvent("PLAYER_LOGIN")
+        end
+    end
+end
+
+LoadListener:RegisterEvent("PLAYER_LOGIN")
+LoadListener:SetScript("OnEvent", LoadListener_OnEvent)
